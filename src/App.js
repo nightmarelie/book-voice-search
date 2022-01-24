@@ -1,23 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import Mic from "./microphone.svg";
+import useVoice from "./useVoice";
+import useBookFetch from "./useBookFetch";
 
 function App() {
+  const { text, isListening, listen, voiceSupported } = useVoice();
+  const { authorBooks, isFetchingBooks, fetchBooksByAuthor } = useBookFetch();
+
+  useEffect(() => {
+    if (text !== "") {
+      fetchBooksByAuthor(text);
+    }
+  }, [text, fetchBooksByAuthor]);
+
+  if (!voiceSupported) {
+    return (
+      <div className="app">
+        <h1>
+          Voice recognition is not supported by your browser, please retry with
+          a supported browser e.g. Chrome
+        </h1>
+      </div>
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+    <div>
+      <div className="app">
+        <h2>Book Voice Search</h2>
+        <h3>Click the Mic and say an author's name</h3>
+        <div>
+          <img
+            className={`microphone ${isListening && "isListening"}`}
+            src={Mic}
+            alt="microphone"
+            onClick={listen}
+          />
+        </div>
+        <p>{text}</p>
+        {isFetchingBooks ? (
+          "fetching books...."
+        ) : (
+          <ul>
+            {authorBooks.map((book, index) => {
+              return (
+                <li key={index}>
+                  <span>{book.title}</span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+      <div className="icon-reg">
+        Icons made by{" "}
         <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="https://www.flaticon.com/authors/dave-gandy"
+          title="Dave Gandy"
         >
-          Learn React
+          Dave Gandy
+        </a>{" "}
+        from{" "}
+        <a href="https://www.flaticon.com/" title="Flaticon">
+          www.flaticon.com
         </a>
-      </header>
+      </div>
     </div>
   );
 }

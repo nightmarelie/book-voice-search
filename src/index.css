@@ -1,13 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Sanchez&display=swap");
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #302c5b;
+  color: white;
+  font-family: "Sanchez", serif;
+  display: flex;
+  flex-direction: column;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.microphone {
+  height: 100px;
+  cursor: pointer;
+}
+
+.microphone.isListening {
+  animation: animationFrames linear 0.8s;
+  animation-iteration-count: infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes animationFrames {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  15% {
+    transform: translate(0px, -25px);
+  }
+  30% {
+    transform: translate(0px, 0px);
+  }
+  45% {
+    transform: translate(0px, -15px);
+  }
+  60% {
+    transform: translate(0px, 0px);
+  }
+  75% {
+    transform: translate(0px, -5px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.icon-reg {
+  position: absolute;
+  bottom: 0;
+  font-size: 10px;
 }
